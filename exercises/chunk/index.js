@@ -21,17 +21,30 @@
 //   return chunkArray
 // }
 
+// function chunk(array, size) {
+//   const chunkArray = []
+//   let chunk = []
+//   for (let i = 0; i < array.length; i++) {
+//     chunk.push(array[i])
+//     if (chunk.length === size || i === array.length - 1) {
+//       chunkArray.push(chunk)
+//       chunk = []
+//     }
+//   }
+//   return chunkArray
+// }
+
 function chunk(array, size) {
-  const chunkArray = []
-  let chunk = []
-  for (let i = 0; i < array.length; i++) {
-    chunk.push(array[i])
-    if (chunk.length === size || i === array.length - 1) {
-      chunkArray.push(chunk)
-      chunk = []
-    }
+  const chunked = []
+  let index = 0
+
+  while (index < array.length) {
+    let chunk = array.slice(index, index + size)
+    chunked.push(chunk)
+    index += size
   }
-  return chunkArray
+
+  return chunked
 }
 
 module.exports = chunk;

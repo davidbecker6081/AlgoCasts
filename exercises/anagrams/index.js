@@ -18,44 +18,67 @@
 // map.keys
 
 function anagrams(stringA, stringB) {
-  stringA = stringA.replace(/[^\w]/g, '').toLowerCase()
-  stringB = stringB.replace(/[^\w]/g, '').toLowerCase()
+  const charMapA = buildCharMap(stringA)
+  const charMapB = buildCharMap(stringB)
 
-  const mapA = [...stringA].reduce((map, letter) => {
-    if (!map.has(letter)) {
-      map.set(letter, 1)
-    } else {
-      let count = map.get(letter) + 1
-      map.set(letter, count)
-    }
-    return map
-  }, new Map())
-
-  const mapB = [...stringB].reduce((map, letter) => {
-    if (!map.has(letter)) {
-      map.set(letter, 1)
-    } else {
-      let count = map.get(letter) + 1
-      map.set(letter, count)
-    }
-    return map
-  }, new Map())
-
-
-  if (mapA.size === mapB.size) {
-    for (let a_key of mapA.keys()) {
-      if (!mapB.has(a_key)) {
-        return false
-      } else {
-        if (mapB.get(a_key) !== mapA.get(a_key)) {
-          return false
-        }
-      }
-    }
-    return true
-  } else {
+  if (Object.keys(charMapA).length !== Object.keys(charMapB).length) {
     return false
   }
+  for (let char in charMapA) {
+    if (charMapA[char] !== charMapB[char]) {
+      return false
+    }
+  }
+  return true
 }
+
+function buildCharMap(str) {
+  return [...str].reduce((charMap, letter) => {
+    letter.replace(/[^\w]/g, '').toLowerCase()
+    charMap[letter] = charMap[letter] + 1 || 1
+    return charMap
+  }, {})
+}
+
+// function anagrams(stringA, stringB) {
+//   stringA = stringA.replace(/[^\w]/g, '').toLowerCase()
+//   stringB = stringB.replace(/[^\w]/g, '').toLowerCase()
+//
+//   const mapA = [...stringA].reduce((map, letter) => {
+//     if (!map.has(letter)) {
+//       map.set(letter, 1)
+//     } else {
+//       let count = map.get(letter) + 1
+//       map.set(letter, count)
+//     }
+//     return map
+//   }, new Map())
+//
+//   const mapB = [...stringB].reduce((map, letter) => {
+//     if (!map.has(letter)) {
+//       map.set(letter, 1)
+//     } else {
+//       let count = map.get(letter) + 1
+//       map.set(letter, count)
+//     }
+//     return map
+//   }, new Map())
+//
+//
+//   if (mapA.size === mapB.size) {
+//     for (let a_key of mapA.keys()) {
+//       if (!mapB.has(a_key)) {
+//         return false
+//       } else {
+//         if (mapB.get(a_key) !== mapA.get(a_key)) {
+//           return false
+//         }
+//       }
+//     }
+//     return true
+//   } else {
+//     return false
+//   }
+// }
 
 module.exports = anagrams;

@@ -17,27 +17,36 @@
 // map.values
 // map.keys
 
-function anagrams(stringA, stringB) {
-  const charMapA = buildCharMap(stringA)
-  const charMapB = buildCharMap(stringB)
+// function anagrams(stringA, stringB) {
+//   const charMapA = buildCharMap(stringA)
+//   const charMapB = buildCharMap(stringB)
+//
+//   if (Object.keys(charMapA).length !== Object.keys(charMapB).length) {
+//     return false
+//   }
+//   for (let char in charMapA) {
+//     if (charMapA[char] !== charMapB[char]) {
+//       return false
+//     }
+//   }
+//   return true
+// }
+//
+// function buildCharMap(str) {
+//   return [...str].reduce((charMap, letter) => {
+//     letter.replace(/[^\w]/g, '').toLowerCase()
+//     charMap[letter] = charMap[letter] + 1 || 1
+//     return charMap
+//   }, {})
+// }
 
-  if (Object.keys(charMapA).length !== Object.keys(charMapB).length) {
-    return false
-  }
-  for (let char in charMapA) {
-    if (charMapA[char] !== charMapB[char]) {
-      return false
-    }
-  }
-  return true
+function anagrams(stringA, stringB) {
+  return cleanString(stringA) === cleanString(stringB)
 }
 
-function buildCharMap(str) {
-  return [...str].reduce((charMap, letter) => {
-    letter.replace(/[^\w]/g, '').toLowerCase()
-    charMap[letter] = charMap[letter] + 1 || 1
-    return charMap
-  }, {})
+function cleanString(str) {
+  const onlyCharString = str.replace(/[^\w]/g, '').toLowerCase()
+  return [...onlyCharString].sort().join('')
 }
 
 // function anagrams(stringA, stringB) {
